@@ -31,6 +31,7 @@ extension ListaCategoriasRouter: ListaCategoriasRouterProtocol {
     
     func mostrarForm() {
         formCategoriaBuilder = FormCategoriaBuilder()
+        formCategoriaBuilder?.delegate = self
     
         let formCategoriaViewController = formCategoriaBuilder!.build()
         view?.show(formCategoriaViewController, sender: nil)
@@ -41,4 +42,8 @@ extension ListaCategoriasRouter: DetalleCategoriaBuilderDelegate {
     func detalleCategoriaBuilder(didDeleteCategoria view: UIViewController) {
 
     }
+}
+
+extension ListaCategoriasRouter: FormCategoriaBuilderDelegate {
+    
 }
