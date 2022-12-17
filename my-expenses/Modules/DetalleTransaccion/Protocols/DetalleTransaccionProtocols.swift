@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol DetalleTransaccionViewProtocol {
+    func showDetalle()
+}
+
 protocol DetalleTransaccionInteractorProtocol {
     func transaccion(_ id: String)
     func eliminar(por id: String)
@@ -15,8 +19,16 @@ protocol DetalleTransaccionInteractorProtocol {
 protocol DetalleTransaccionPresenterInputProtocol {
     func viewWillAppear()
     func getDetalleInfo() -> DetalleTransaccionViewModel?
+    func didTrashTap()
 }
 
 protocol DetalleTransaccionPresenterOutputProtocol {
     func showDetalle(_ detalle: DetalleTransaccionEntity)
+    func dismiss()
+    
 }
+
+protocol DetalleTransaccionRouterProtocol {
+    func dismiss()
+}
+

@@ -29,6 +29,7 @@ protocol ListaTransaccionesPresenterInputProtocol {
 
 protocol ListaTransaccionesPresenterOutputProtocol {
     func showTransacciones(_ transacciones: [TransaccionEntity])
+    func updateUI()
 }
 
 protocol ListaTransaccionesRouterProtocol {

@@ -36,12 +36,12 @@ extension ListaTransaccionesRouter: ListaTransaccionesRouterProtocol {
 
 extension ListaTransaccionesRouter: DetalleTransaccionBuilderDelegate {
     func detalleTransaccionBuilder(didDelete viewController: UIViewController) {
-        // TODO: do something
+        presenter?.updateUI()
     }
 }
 
 extension ListaTransaccionesRouter: FormTransaccionBuilderDelegate {
     func formTransaccionBuilder(didCreate viewController: UIViewController) {
-        // TODO: do something
+        presenter?.updateUI()
     }
 }

@@ -7,33 +7,30 @@
 
 import Foundation
 
-protocol FormTransaccionInteractorProtocol {
-    func add(_ transaccion: NewTransaccion)
-}
-
-class FormTransaccionInteractor: FormTransaccionInteractorProtocol {
-    var presenter: FormTransaccionPresenterProtocol?
+class FormTransaccionInteractor {
+    var presenter: FormTransaccionPresenterOutputProtocol?
     var api: RemoteRepository?
     
-    required init(presenter: FormTransaccionPresenterProtocol, api: RemoteRepository) {
+    required init(presenter: FormTransaccionPresenterOutputProtocol, api: RemoteRepository) {
         self.presenter = presenter
         self.api = api
     }
-    
+}
+
+extension FormTransaccionInteractor: FormTransaccionInteractorProtocol {
     @MainActor
-    func add(_ transaccion: NewTransaccion) {
+    func add(_ transaccion: TransaccionAgregadaEntity) {
         Task.init {
-            try await api?.add(transaccion)
+            await api?.add(transaccion)
             presenter?.dismiss()
         }
     }
-}
-
-struct NewTransaccion: Encodable {
-    let descripcion: String
-    let cantidad: Double
-    let tipo: String
-    let fecha: String
-    let categoriaId: String
-    let nota: String
+    
+    @MainActor
+    func categorias() {
+        Task.init {
+            guard let categorias = await api?.fetchCategorias() else { return }
+            presenter?.obtenerCategorias(categorias)
+        }
+    }
 }

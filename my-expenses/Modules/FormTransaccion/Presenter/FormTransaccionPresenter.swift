@@ -7,20 +7,43 @@
 
 import Foundation
 
-protocol FormTransaccionPresenterProtocol {
-    func didDoneTap()
-    func dismiss()
-}
-
-class FormTransaccionPresenter: FormTransaccionPresenterProtocol {
+class FormTransaccionPresenter {
+    private var categorias: [CategoriaButtonEntity] = []
+    
     var view: FormTransaccionViewProtocol?
     var interactor: FormTransaccionInteractorProtocol?
     var router: FormTransaccionRouterProtocol?
-    
-    func didDoneTap() {
-        interactor?.add(NewTransaccion(descripcion: "Alguna medicina", cantidad: 3.50, tipo: "Gasto", fecha: "20221215T220641Z", categoriaId: "algunacategoria", nota: "algunanota"))
+}
+
+extension FormTransaccionPresenter: FormTransaccionPresenterInputProtocol {
+    func viewWillAppear() {
+        interactor?.categorias()
     }
     
+    func didDoneTap(descripcion: String, cantidad: String, tipo: String, fecha: String, categoria: String, nota: String) {
+        guard let cat = categorias.first(where: { $0.nombre == categoria }) else { return }
+    
+        let data = TransaccionAgregadaEntity(
+            descripcion: descripcion,
+            cantidad: Double(cantidad)!,
+            categoriaId: cat.id,
+            fecha: fecha,
+            nota: nota,
+            tipo: tipo
+        )
+        interactor?.add(data)
+    }
+}
+
+extension FormTransaccionPresenter: FormTransaccionPresenterOutputProtocol {
+    func obtenerCategorias(_ categorias: [CategoriaResponse]) {
+        let mappedCategorias = categorias.map {
+            CategoriaButtonEntity(id: $0.id!, nombre: $0.nombre)
+        }
+        self.categorias = mappedCategorias
+        view?.setupCategoriaButton(mappedCategorias)
+    }
+
     func dismiss() {
         router?.dismiss()
     }

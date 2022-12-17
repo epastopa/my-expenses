@@ -9,7 +9,7 @@ import Foundation
 
 
 
-class DetalleTransaccionInteractor: DetalleTransaccionInteractorProtocol {
+class DetalleTransaccionInteractor {
     var presenter: DetalleTransaccionPresenterOutputProtocol?
     var api: RemoteRepository?
     
@@ -17,7 +17,9 @@ class DetalleTransaccionInteractor: DetalleTransaccionInteractorProtocol {
         self.presenter = presenter
         self.api = api
     }
-    
+}
+
+extension DetalleTransaccionInteractor: DetalleTransaccionInteractorProtocol {
     @MainActor
     func transaccion(_ id: String) {
         Task.init {
@@ -32,8 +34,8 @@ class DetalleTransaccionInteractor: DetalleTransaccionInteractorProtocol {
     @MainActor
     func eliminar(por id: String) {
         Task.init {
-            try await api?.deleteTransaccion(por: id)
-//            presenter?.dismiss()
+            await api?.deleteTransaccion(por: id)
+            presenter?.dismiss()
         }
     }
 }

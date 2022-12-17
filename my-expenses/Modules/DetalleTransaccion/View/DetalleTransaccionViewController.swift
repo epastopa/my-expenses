@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol DetalleTransaccionViewProtocol {
-    func showDetalle()
-}
-
 class DetalleTransaccionViewController: UIViewController {
     var presenter: DetalleTransaccionPresenterInputProtocol?
 
@@ -33,7 +29,7 @@ class DetalleTransaccionViewController: UIViewController {
     }
     
     @IBAction func didDeleteTap(_ sender: UIBarButtonItem) {
-//        presenter?.didDeleteTap()
+        presenter?.didTrashTap()
     }
 }
 

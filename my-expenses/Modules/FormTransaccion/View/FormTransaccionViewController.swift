@@ -7,48 +7,74 @@
 
 import UIKit
 
-protocol FormTransaccionViewProtocol {
-    
-}
-
 class FormTransaccionViewController: UIViewController {
-    private var tipoTransaccion: String = Tipo.gasto.rawValue
+    private var tipoTransaccion: String?
     
-    var presenter: FormTransaccionPresenterProtocol?
+    var presenter: FormTransaccionPresenterInputProtocol?
     
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var amountTextField: UITextField!
-    @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var typeButton: UIButton!
+    @IBOutlet weak var descripcionTextField: UITextField!
+    @IBOutlet weak var cantidadTextField: UITextField!
+    @IBOutlet weak var tipoButton: UIButton!
+    @IBOutlet weak var categoriaButton: UIButton!
+    @IBOutlet weak var fechaTextField: UITextField!
+    @IBOutlet weak var notaTextView: UITextView!
     @IBOutlet weak var navigationBar: UINavigationBar!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        presenter?.viewWillAppear()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.shadowImage = UIImage() // Remove default navigation bar shadow
         setupTypeButton()
     }
-
+    
     @IBAction func didCancelTap(_ sender: UIBarButtonItem) {
         
     }
     
     @IBAction func didDoneTap(_ sender: UIBarButtonItem) {
-        presenter?.didDoneTap()
+        guard let descripcion = descripcionTextField.text, !descripcion.isEmpty else { return }
+        guard let cantidad = cantidadTextField.text, !cantidad.isEmpty else { return }
+        guard let tipo = tipoButton.titleLabel?.text else { return }
+        guard let categoria = categoriaButton.titleLabel?.text else { return }
+        let fecha = fechaTextField.text ?? ""
+        let nota = notaTextView.text ?? ""
+        
+        presenter?.didDoneTap(
+            descripcion: descripcion,
+            cantidad: cantidad,
+            tipo: tipo,
+            fecha: fecha,
+            categoria: categoria,
+            nota: nota
+        )
     }
 }
 
 extension FormTransaccionViewController: FormTransaccionViewProtocol {
-    
+    func setupCategoriaButton(_ categorias: [CategoriaButtonEntity]) {
+        let optionHandler = { (action: UIAction) in self.tipoTransaccion = action.title }
+        let children = categorias.map {
+            UIAction(title: $0.nombre, handler: optionHandler)
+        }
+        children[0].state = .on
+        categoriaButton.menu = UIMenu(children: children)
+        categoriaButton.showsMenuAsPrimaryAction = true
+        categoriaButton.changesSelectionAsPrimaryAction = true
+    }
 }
 
 extension FormTransaccionViewController {
     func setupTypeButton() {
         let optionHandler = { (action: UIAction) in self.tipoTransaccion = action.title }
-        typeButton.menu = UIMenu(children : [
-            UIAction(title: Tipo.gasto.rawValue, state: .on, handler: optionHandler),
-            UIAction(title: Tipo.ingreso.rawValue, handler: optionHandler),
+        tipoButton.menu = UIMenu(children : [
+            UIAction(title: "Gasto", state: .on, handler: optionHandler),
+            UIAction(title: "Ingreso", handler: optionHandler),
         ])
-        typeButton.showsMenuAsPrimaryAction = true
-        typeButton.changesSelectionAsPrimaryAction = true
+        tipoButton.showsMenuAsPrimaryAction = true
+        tipoButton.changesSelectionAsPrimaryAction = true
     }
 }

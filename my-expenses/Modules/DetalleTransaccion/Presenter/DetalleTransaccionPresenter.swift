@@ -20,12 +20,16 @@ class DetalleTransaccionPresenter {
 }
 
 extension DetalleTransaccionPresenter: DetalleTransaccionPresenterInputProtocol {
+    func viewWillAppear() {
+        interactor?.transaccion(detalleId)
+    }
+    
     func getDetalleInfo() -> DetalleTransaccionViewModel? {
         return detalle
     }
     
-    func viewWillAppear() {
-        interactor?.transaccion(detalleId)
+    func didTrashTap() {
+        interactor?.eliminar(por: detalleId)
     }
 }
 
@@ -44,5 +48,9 @@ extension DetalleTransaccionPresenter: DetalleTransaccionPresenterOutputProtocol
         )
         
         view?.showDetalle()
+    }
+    
+    func dismiss() {
+        router?.dismiss()
     }
 }

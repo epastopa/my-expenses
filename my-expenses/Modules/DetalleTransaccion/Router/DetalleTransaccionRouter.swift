@@ -7,18 +7,16 @@
 
 import UIKit
 
-protocol DetalleTransaccionRouterProtocol {
-    func dismiss()
-}
-
-class DetalleTransaccionRouter: DetalleTransaccionRouterProtocol {
+class DetalleTransaccionRouter {
     var view: UIViewController?
     var delegate: DetalleTransaccionBuilderDelegate
     
     required init(delegate: DetalleTransaccionBuilderDelegate) {
         self.delegate = delegate
     }
-    
+}
+
+extension DetalleTransaccionRouter: DetalleTransaccionRouterProtocol {
     func dismiss() {
         view?.dismiss(animated: true)
         delegate.detalleTransaccionBuilder(didDelete: view!)

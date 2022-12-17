@@ -44,6 +44,8 @@ extension ListaTransaccionesPresenter: ListaTransaccionesPresenterInputProtocol 
         let transaccion = transacciones[index]
         router?.mostrarDetalle(transaccion.id)
     }
+    
+    
 }
 
 extension ListaTransaccionesPresenter: ListaTransaccionesPresenterOutputProtocol {
@@ -59,5 +61,9 @@ extension ListaTransaccionesPresenter: ListaTransaccionesPresenterOutputProtocol
             )
         }
         view?.showTransacciones()
+    }
+    
+    func updateUI() {
+        interactor?.transacciones()
     }
 }

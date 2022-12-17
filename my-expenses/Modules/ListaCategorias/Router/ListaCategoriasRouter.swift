@@ -39,6 +39,6 @@ extension ListaCategoriasRouter: ListaCategoriasRouterProtocol {
 
 extension ListaCategoriasRouter: DetalleCategoriaBuilderDelegate {
     func detalleCategoriaBuilder(didDeleteCategoria view: UIViewController) {
-        print("Algo pasó")
+
     }
 }

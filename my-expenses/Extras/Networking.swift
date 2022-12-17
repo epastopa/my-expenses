@@ -11,11 +11,11 @@ import FirebaseFirestore
 protocol RemoteRepository {
     func fetchTransacciones() async -> [TransaccionResponse]
     func fetchTransaccion(por id: String) async -> TransaccionResponse?
+    func add(_ transaccion: TransaccionAgregadaEntity) async -> Void
+    func fetchCategorias() async -> [CategoriaResponse]
     func fetchCategoria(por id: String) async -> CategoriaResponse?
+    func deleteTransaccion(por id: String) async -> Void
     
-    func add(_ transaccion: NewTransaccion) async throws -> Void
-    func deleteTransaccion(por id: String) async throws -> Void
-    func fetchCategorias() async throws -> [CategoriaResponse]
     func fetchPresupuestos() async throws -> [PresupuestoResponse]
 }
 
@@ -53,6 +53,38 @@ class FirebaseAPI: RemoteRepository {
     }
     
     // TODO: retornar errores
+    func add(_ transaccion: TransaccionAgregadaEntity) async {
+        let colRef = db.collection("transaccion")
+        let docRef = colRef.document()
+        
+        do {
+            try await docRef.setData([
+                "descripcion": transaccion.descripcion,
+                "cantidad": transaccion.cantidad,
+                "categoriaId": transaccion.categoriaId,
+                "fecha": transaccion.fecha,
+                "nota": transaccion.nota,
+                "tipo": transaccion.tipo
+            ])
+        } catch {
+            print("Error")
+        }
+    }
+    
+    // TODO: retornar errores
+    func fetchCategorias() async -> [CategoriaResponse] {
+        let colRef = db.collection("categoria")
+        do {
+            let querySnapshot = try await colRef.getDocuments()
+            let data = querySnapshot.documents.compactMap { document in try? document.data(as: CategoriaResponse.self) }
+            return data
+        } catch {
+            return []
+        }
+    }
+    
+    
+    // TODO: retornar errores
     func fetchCategoria(por id: String) async -> CategoriaResponse? {
         let colRef = db.collection("categoria")
         
@@ -66,26 +98,19 @@ class FirebaseAPI: RemoteRepository {
         }
     }
     
-    
-    
-    func add(_ transaccion: NewTransaccion) async throws {
-        let docRef = db.collection("transaccion")
-        let newTransaccion = docRef.document()
-        try newTransaccion.setData(from: transaccion)
+    // TODO: retornar errores
+    func deleteTransaccion(por id: String) async {
+        let colRef = db.collection("transaccion")
+        let docRef = colRef.document(id)
+        
+        do {
+//            try await docRef.delete()
+            try await docRef.delete()
+        } catch {
+            print("Error")
+        }
     }
-    
-    func deleteTransaccion(por id: String) async throws {
-        let docRef = db.collection("transaccion")
-        let querySnapshot = docRef.document(id)
-        try await querySnapshot.delete()
-    }
-    
-    func fetchCategorias() async throws -> [CategoriaResponse] {
-        let docRef = db.collection("categoria")
-        let querySnapshot = try await docRef.getDocuments()
-        return querySnapshot.documents.compactMap { document in try? document.data(as: CategoriaResponse.self) }
-    }
-    
+
     func fetchPresupuestos() async throws -> [PresupuestoResponse] {
         let docRef = db.collection("presupuesto")
         let querySnapshot = try await docRef.getDocuments()

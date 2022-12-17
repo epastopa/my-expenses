@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol FormTransaccionRouterProtocol {
-    func dismiss()
-}
-
 class FormTransaccionRouter: FormTransaccionRouterProtocol {
     var view: UIViewController?
     var delegate: FormTransaccionBuilderDelegate

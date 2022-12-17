@@ -61,8 +61,8 @@ extension ListaTransaccionesViewController: UITableViewDataSource, UITableViewDe
 extension ListaTransaccionesViewController {
     func updateUI() {
         transactionsTableView.reloadData()
-        ingresosTotalesLabel.text = "$\(presenter!.ingresosTotales)"
-        gastosTotales.text = "$\(presenter!.gastosTotales)"
-        balanceLabel.text = "$\(presenter!.balanceTotal)"
+        ingresosTotalesLabel.text = "$\(String(format: "%.2f", presenter!.ingresosTotales))"
+        gastosTotales.text = "$\(String(format: "%.2f", presenter!.gastosTotales))"
+        balanceLabel.text = "$\(String(format: "%.2f", presenter!.balanceTotal))"
     }
 }
