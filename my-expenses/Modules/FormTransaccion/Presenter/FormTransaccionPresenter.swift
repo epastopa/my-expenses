@@ -20,6 +20,10 @@ extension FormTransaccionPresenter: FormTransaccionPresenterInputProtocol {
         interactor?.categorias()
     }
     
+    func didCancelTap() {
+        router?.dismiss()
+    }
+    
     func didDoneTap(descripcion: String, cantidad: String, tipo: String, fecha: String, categoria: String, nota: String) {
         guard let cat = categorias.first(where: { $0.nombre == categoria }) else { return }
     

@@ -18,6 +18,7 @@ protocol FormTransaccionInteractorProtocol {
 
 protocol FormTransaccionPresenterInputProtocol {
     func viewWillAppear()
+    func didCancelTap()
     func didDoneTap(descripcion: String, cantidad: String, tipo: String, fecha: String, categoria: String, nota: String)
 }
 

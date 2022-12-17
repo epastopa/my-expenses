@@ -32,7 +32,7 @@ class FormTransaccionViewController: UIViewController {
     }
     
     @IBAction func didCancelTap(_ sender: UIBarButtonItem) {
-        
+        presenter?.didCancelTap()
     }
     
     @IBAction func didDoneTap(_ sender: UIBarButtonItem) {
