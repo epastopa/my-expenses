@@ -8,49 +8,50 @@
 import UIKit
 
 protocol DetalleTransaccionViewProtocol {
-    
+    func showDetalle()
 }
 
 class DetalleTransaccionViewController: UIViewController {
-    var presenter: DetalleTransaccionPresenterProtocol?
+    var presenter: DetalleTransaccionPresenterInputProtocol?
 
-    @IBOutlet weak var amountLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var categoryNameLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var descripcionLabel: UILabel!
+    @IBOutlet weak var cantidadLabel: UILabel!
+    @IBOutlet weak var fechaLabel: UILabel!
+    @IBOutlet weak var categoriaLabel: UILabel!
+    @IBOutlet weak var tipoLabel: UILabel!
+    @IBOutlet weak var notaTextView: UITextView!
     @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var titleNavigationItem: UINavigationItem!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setup()
+        presenter?.viewWillAppear()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.prefersLargeTitles = true
         navigationBar.shadowImage = UIImage() // Remove default navigation bar shadow
     }
     
     @IBAction func didDeleteTap(_ sender: UIBarButtonItem) {
-        presenter?.didDeleteTap()
+//        presenter?.didDeleteTap()
     }
 }
 
 extension DetalleTransaccionViewController {
     func setup() {
-        let transaction = presenter?.getDetalle()
+        let detalle = presenter?.getDetalleInfo()
 
-        titleNavigationItem.title = transaction?.descripcion
-        amountLabel.text = "$\(transaction?.cantidad ?? 0.00)"
-        typeLabel.text = transaction?.tipo
-        dateLabel.text = transaction?.fecha
-        categoryNameLabel.text = transaction?.categoriaId
-        descriptionTextView.text = transaction?.nota
+        descripcionLabel.text = detalle?.descripcion
+        cantidadLabel.text = detalle?.cantidad
+        tipoLabel.text = detalle?.tipo
+        fechaLabel.text = detalle?.fecha
+        categoriaLabel.text = detalle?.categoria
+        notaTextView.text = detalle?.nota
     }
 }
 
 extension DetalleTransaccionViewController: DetalleTransaccionViewProtocol {
-    
+    func showDetalle() {
+        setup()
+    }
 }

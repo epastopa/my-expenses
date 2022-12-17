@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 protocol RemoteRepository {
     func fetchTransacciones() async -> [TransaccionResponse]
+    func fetchTransaccion(por id: String) async -> TransaccionResponse?
     func fetchCategoria(por id: String) async -> CategoriaResponse?
     
     func add(_ transaccion: NewTransaccion) async throws -> Void
@@ -34,6 +35,20 @@ class FirebaseAPI: RemoteRepository {
         } catch {
             print("Error")
             return []
+        }
+    }
+    
+    // TODO: retornar errores
+    func fetchTransaccion(por id: String) async -> TransaccionResponse? {
+        let colRef = db.collection("transaccion")
+        
+        do {
+            let querySnapshot = colRef.document(id)
+            let data = try await querySnapshot.getDocument().data(as: TransaccionResponse.self)
+            return data
+        } catch {
+            print("Error")
+            return nil
         }
     }
     
@@ -76,6 +91,6 @@ class FirebaseAPI: RemoteRepository {
         let querySnapshot = try await docRef.getDocuments()
         return querySnapshot.documents.compactMap { document in try? document.data(as: PresupuestoResponse.self) }
     }
-
+    
     
 }

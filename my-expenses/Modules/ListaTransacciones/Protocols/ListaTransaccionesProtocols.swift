@@ -24,7 +24,7 @@ protocol ListaTransaccionesPresenterInputProtocol {
     func viewWillApper()
     func transaccion(for cell: Int) -> TransaccionViewModel
     func presentarForm()
-    func presentarDetalle(_ transaccion: TransaccionResponse)
+    func presentarDetalle(_ index: Int)
 }
 
 protocol ListaTransaccionesPresenterOutputProtocol {
@@ -32,6 +32,6 @@ protocol ListaTransaccionesPresenterOutputProtocol {
 }
 
 protocol ListaTransaccionesRouterProtocol {
-    func mostrar(_ transaccion: TransaccionResponse)
+    func mostrarDetalle(_ id: String)
     func mostrarForm()
 }

@@ -15,10 +15,10 @@ public protocol DetalleTransaccionBuilderDelegate {
 class DetalleTransaccionBuilder {
     public var delegate: DetalleTransaccionBuilderDelegate?
     
-    func build(_ detalle: TransaccionResponse) -> UIViewController {
+    func build(_ id: String) -> UIViewController {
         let router = DetalleTransaccionRouter(delegate: delegate!)
 
-        let presenter = DetalleTransaccionPresenter(detalle: detalle)
+        let presenter = DetalleTransaccionPresenter(id: id)
         
         let api = FirebaseAPI()
         let interactor = DetalleTransaccionInteractor(presenter: presenter, api: api)

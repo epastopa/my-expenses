@@ -17,11 +17,11 @@ class ListaTransaccionesRouter {
 }
 
 extension ListaTransaccionesRouter: ListaTransaccionesRouterProtocol {
-    func mostrar(_ transaccion: TransaccionResponse) {
+    func mostrarDetalle(_ id: String) {
         detalleTransaccionBuilder = DetalleTransaccionBuilder()
         detalleTransaccionBuilder?.delegate = self
         
-        let detalleTransaccionViewController = detalleTransaccionBuilder!.build(transaccion)
+        let detalleTransaccionViewController = detalleTransaccionBuilder!.build(id)
         view?.show(detalleTransaccionViewController, sender: nil)
     }
     

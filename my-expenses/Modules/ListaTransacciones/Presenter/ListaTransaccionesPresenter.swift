@@ -40,8 +40,9 @@ extension ListaTransaccionesPresenter: ListaTransaccionesPresenterInputProtocol 
         router?.mostrarForm()
     }
     
-    func presentarDetalle(_ transaccion: TransaccionResponse) {
-        router?.mostrar(transaccion)
+    func presentarDetalle(_ index: Int) {
+        let transaccion = transacciones[index]
+        router?.mostrarDetalle(transaccion.id)
     }
 }
 

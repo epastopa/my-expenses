@@ -7,33 +7,42 @@
 
 import Foundation
 
-protocol DetalleTransaccionPresenterProtocol {
-    func getDetalle() -> TransaccionResponse
-    func didDeleteTap()
-    func dismiss()
-}
-
-class DetalleTransaccionPresenter: DetalleTransaccionPresenterProtocol {
-    private var detalle: TransaccionResponse
-    
+class DetalleTransaccionPresenter {
+    private var detalleId: String
+    var detalle: DetalleTransaccionViewModel?
     var view: DetalleTransaccionViewProtocol?
     var interactor: DetalleTransaccionInteractorProtocol?
     var router: DetalleTransaccionRouterProtocol?
     
-    required init(detalle: TransaccionResponse) {
-        self.detalle = detalle
+    required init(id: String) {
+        self.detalleId = id
     }
-    
-    func getDetalle() -> TransaccionResponse {
+}
+
+extension DetalleTransaccionPresenter: DetalleTransaccionPresenterInputProtocol {
+    func getDetalleInfo() -> DetalleTransaccionViewModel? {
         return detalle
     }
     
-    func didDeleteTap() {
-        guard let id = detalle.id else { return }
-        interactor?.eliminar(por: id)
+    func viewWillAppear() {
+        interactor?.transaccion(detalleId)
     }
-    
-    func dismiss() {
-        router?.dismiss()
+}
+
+extension DetalleTransaccionPresenter: DetalleTransaccionPresenterOutputProtocol {
+    func showDetalle(_ detalle: DetalleTransaccionEntity) {
+        let cantidad = "$\(detalle.cantidad)"
+        
+        self.detalle = DetalleTransaccionViewModel(
+            id: detalle.id,
+            descripcion: detalle.descripcion,
+            cantidad: cantidad,
+            fecha: detalle.fecha,
+            categoria: detalle.categoria,
+            tipo: detalle.tipo,
+            nota: detalle.nota
+        )
+        
+        view?.showDetalle()
     }
 }

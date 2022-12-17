@@ -53,6 +53,7 @@ extension ListaTransaccionesViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.presentarDetalle(indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -28,6 +28,8 @@
 		025621B1294B5D0900788563 /* AppBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025621B0294B5D0900788563 /* AppBuilder.swift */; };
 		025AFBBC2948AC250065304E /* FormCategoriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025AFBBB2948AC240065304E /* FormCategoriaViewController.swift */; };
 		0272CD64294DB89300056921 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0272CD63294DB89300056921 /* GoogleService-Info.plist */; };
+		0272CD66294DBF3300056921 /* DetalleTransaccionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272CD65294DBF3300056921 /* DetalleTransaccionEntity.swift */; };
+		0272CD69294DC08B00056921 /* DetalleTransaccionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272CD68294DC08B00056921 /* DetalleTransaccionProtocols.swift */; };
 		0289AB7F294B88810064E0D0 /* FormTransaccionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0289AB7E294B88810064E0D0 /* FormTransaccionBuilder.swift */; };
 		0289AB86294B88E60064E0D0 /* FormTransaccionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0289AB85294B88E60064E0D0 /* FormTransaccionInteractor.swift */; };
 		0289AB88294B88EF0064E0D0 /* FormTransaccionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0289AB87294B88EF0064E0D0 /* FormTransaccionPresenter.swift */; };
@@ -98,6 +100,8 @@
 		025621B0294B5D0900788563 /* AppBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBuilder.swift; sourceTree = "<group>"; };
 		025AFBBB2948AC240065304E /* FormCategoriaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCategoriaViewController.swift; sourceTree = "<group>"; };
 		0272CD63294DB89300056921 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0272CD65294DBF3300056921 /* DetalleTransaccionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetalleTransaccionEntity.swift; path = "my-expenses/Modules/ListaTransacciones/Protocols/DetalleTransaccionEntity.swift"; sourceTree = SOURCE_ROOT; };
+		0272CD68294DC08B00056921 /* DetalleTransaccionProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalleTransaccionProtocols.swift; sourceTree = "<group>"; };
 		0289AB7E294B88810064E0D0 /* FormTransaccionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTransaccionBuilder.swift; sourceTree = "<group>"; };
 		0289AB85294B88E60064E0D0 /* FormTransaccionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTransaccionInteractor.swift; sourceTree = "<group>"; };
 		0289AB87294B88EF0064E0D0 /* FormTransaccionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTransaccionPresenter.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 		02395F7C294B7B0500F1A029 /* DetalleTransaccion */ = {
 			isa = PBXGroup;
 			children = (
+				0272CD67294DC07200056921 /* Protocols */,
 				02395F81294B7B2F00F1A029 /* View */,
 				02395F80294B7B2700F1A029 /* Interactor */,
 				02395F7F294B7B1F00F1A029 /* Presenter */,
@@ -213,6 +218,7 @@
 		02395F7E294B7B1600F1A029 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				0272CD65294DBF3300056921 /* DetalleTransaccionEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -292,6 +298,14 @@
 				023AA06C294A2FC500FF03E3 /* ListaPresupuestosViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0272CD67294DC07200056921 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0272CD68294DC08B00056921 /* DetalleTransaccionProtocols.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		0289AB7D294B88570064E0D0 /* FormTransaccion */ = {
@@ -788,6 +802,7 @@
 				029E050D294AD1710021E8E8 /* CategoriaResponse.swift in Sources */,
 				A5B35C8A294DA787000D0F3F /* ListaTransaccionesProtocols.swift in Sources */,
 				02E7945F294D03DC006F60EA /* DetallePresupuestoViewController.swift in Sources */,
+				0272CD69294DC08B00056921 /* DetalleTransaccionProtocols.swift in Sources */,
 				0289AB88294B88EF0064E0D0 /* FormTransaccionPresenter.swift in Sources */,
 				021BA9C1292F987F00EF9FA3 /* AppDelegate.swift in Sources */,
 				02E79455294CEBFB006F60EA /* FormPresupuestoBuilder.swift in Sources */,
@@ -815,6 +830,7 @@
 				02123BA42943E40200B093AD /* CategoriaTableViewCell.swift in Sources */,
 				02E79442294CE0AE006F60EA /* FormCategoriaRouter.swift in Sources */,
 				029E0505294A9A580021E8E8 /* ListaTransaccionesRouter.swift in Sources */,
+				0272CD66294DBF3300056921 /* DetalleTransaccionEntity.swift in Sources */,
 				025621AB294B5C7400788563 /* ListaPresupuestosPresenter.swift in Sources */,
 				A5ADEA63293D46E50026E583 /* TransaccionTableViewCell.swift in Sources */,
 				02E7944F294CEB74006F60EA /* FormPresupuestoInteractor.swift in Sources */,
